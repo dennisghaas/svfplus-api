@@ -12,11 +12,17 @@ const blockedUsersRoutes = require('./routes/blockedUserRoutes')
 app.use(express.json());
 
 // Konfiguriere CORS
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
+const corsOptions = {
+  origin: (req, callback) => {
+    const isDev = process.env.NODE_ENV === 'development'; // Überprüfe, ob die Umgebung Entwicklung ist
+    const origin = isDev ? process.env.CORS_ORIGIN_DEV : process.env.CORS_ORIGIN_PROD;
+    callback(null, origin); // Erlaube den Zugriff basierend auf der Umgebung
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
-}));
+};
+
+app.use(cors(corsOptions));
 
 // Routen verwenden
 app.use('/api/users', userRoutes);
