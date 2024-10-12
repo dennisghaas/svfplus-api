@@ -1,9 +1,8 @@
 const { Sequelize } = require('sequelize');
-
-// SQLite-Verbindung einrichten
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './backend/data/database.sqlite' // Speicherort der SQLite-Datenbank
+const sequelize = new Sequelize(process.env.MYSQLDATABASE, process.env.MYSQLUSER, process.env.MYSQLPASSWORD, {
+  host: process.env.MYSQLHOST,
+  dialect: 'mysql',
+  port: process.env.MYSQLPORT,
 });
 
 module.exports = sequelize;
