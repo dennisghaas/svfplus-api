@@ -1,0 +1,157 @@
+### Benutzer registrieren
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+
+{
+  "accessRights": "svf_admin",
+  "birthday": "1955-01-01T00:00:00Z",
+  "debts": 0.00,
+  "email": "svfplusapp@gmail.com",
+  "gotSuit": false,
+  "isInjured": false,
+  "isInjuredType": "",
+  "isInjuredUntil": "1955-01-01T00:00:00Z",
+  "jerseyNumber": 0,
+  "name": "Admin",
+  "password": "!Admin1234",
+  "role": "[Admin]",
+  "surname": "Admin",
+  "userIsActivated": true,
+  "userImage": {
+    "bgColor": "--primary",
+    "initials": "AA"
+  },
+  "username": "admin"
+}
+
+### Benutzer anmelden
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{
+  "username": "player1",
+  "password": "1234"
+}
+
+### Passwort zurücksetzen anfordern
+POST http://localhost:8080/api/users/forgot-password
+Content-Type: application/json
+
+{
+  "email": "dennisghaas@gmail.com"
+}
+
+### Alle Benutzer anzeigen
+GET http://localhost:8080/api/users
+Content-Type: application/json
+
+### Finde Nutzer nach ID
+GET http://localhost:8080/api/users/2
+
+### Alle Benutzer löschen
+DELETE http://localhost:8080/api/users/delete-all
+
+### Nutzer mit bestimmter ID löschen
+DELETE http://localhost:8080/api/users/9
+
+### Termin erstellen
+POST http://localhost:8080/api/events/create
+Content-Type: application/json
+
+{
+  "eventDate": "2024-07-05T16:00:00Z",
+  "eventDescription": {
+    "title": "Auswärtsspiel",
+    "subtitle": "Holsatia im EMTV",
+    "description": "Wir wollen den vierten Sieg in Folge erreichen!",
+    "meetAt": "15:00 AM",
+    "startAt": "16:00 AM",
+    "endAt": "",
+    "deadlineToStart": "2024-08-23T16:00:00Z"
+  },
+  "eventType": "Spiel",
+  "linkExtern": "https://www.fussball.de/spiel/holsatia-im-emtv-3-friedrichsgabe-2/-/spiel/02PUL02EFG000000VS5489B4VVTKJJ35#!/",
+  "playerWithNoAccess": ["test"],
+  "showInDashboard": true,
+  "venue": "Away",
+  "venuePostalCode": "25335 Elmshorn",
+  "venueStreet": "Kaltenweide 234 b",
+  "voteOptions": ["Yes", "No", "Maybe"],
+  "voteQuestion": "Will you attend?",
+  "weekDay": "Sunday"
+}
+
+### Neuen Dauerauftrag erstellen
+POST http://localhost:8080/api/standing-orders
+Content-Type: application/json
+
+{
+  "standingOrderID": 1,
+  "eventIDs": [1, 2, 3, 4, 5, 6]
+}
+
+### Dauerauftrag nach ID löschen
+DELETE http://localhost:8080/api/standing-orders/1
+
+### Alle Daueraufträge anzeigen
+GET http://localhost:8080/api/standing-orders
+
+
+### Alle Termine abrufen
+GET http://localhost:8080/api/events
+
+### Bestimmten Termin abrufen
+GET http://localhost:8080/api/events/5
+
+### Bestimmten Termin löschen
+DELETE http://localhost:8080/api/events/1
+
+### Alle Termine löschen
+DELETE http://localhost:8080/api/events/delete-all
+
+### Ändere die Daten eines bestimmten Users
+PUT http://localhost:8080/api/users/2
+Content-Type: application/json
+
+{
+"id": 2,
+"accessRights": "svf_private",
+"birthday": "1997-07-05T00:00:00.000Z",
+"debts": 0,
+"email": "dennisghaas@gmail.com",
+"gotRejected": false,
+"gotSuit": true,
+"isInjured": false,
+"isInjuredType": null,
+"isInjuredUntil": "1955-01-01T00:00:00.000Z",
+"jerseyNumber": 23,
+"name": "Dennis",
+"password": "$2b$10$6IhjzhoLW5881WnIcJeif.1HTAQtj2WPYGEg7U.VUXmXS.fBJL/Di",
+"position": "Sechser",
+"role": "[\"Spieler\",\"Mannschaftsrat\"]",
+"surname": "Haas",
+"userImage": {
+"initials": "DH",
+"bgColor": "--blue-primary"
+},
+"userIsActivated": true,
+"username": "dennis"
+}
+
+### Event Response
+POST http://localhost:8080/api/event-responses/respond
+Content-Type: application/json
+
+{
+    "userId": 1,
+    "eventId": 1,
+    "response": "accept"
+}
+
+### Übersicht der Event-Reaktionen
+GET http://localhost:8080/api/event-responses/overview/2
+Content-Type: application/json
+
+### Lösche jede Reaktion auf jedes Event
+DELETE http://localhost:8080/api/event-responses
