@@ -4,8 +4,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "NODE_ENV=development nodemon server.js",
+    "start": "node server.js",
+    "migrate:dev": "sequelize-cli db:migrate --env development",
+    "migrate:prod": "sequelize-cli db:migrate --env production"
   },
   "keywords": [],
   "author": "",
