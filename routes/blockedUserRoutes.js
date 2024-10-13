@@ -25,9 +25,14 @@ router.post('/block', async (req, res) => {
 router.get('/blocked-users', async (req, res) => {
     try {
         const blockedUsers = await BlockedUsers.findAll();
-        res.status(200).json(blockedUsers);
+
+        if (blockedUsers.length === 0) {
+            return res.status(200).json({ message: 'No blocked users found', data: [] });
+        }
+
+        res.status(200).json({ message: 'Blocked users retrieved successfully', data: blockedUsers });
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching blocked users', error });
+        res.status(500).json({ message: 'Error fetching blocked users', error: error.message });
     }
 });
 
