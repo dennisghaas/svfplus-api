@@ -1,22 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const BlockedUsers = require('../models/blockedUsers');
+const redis = require('config/database'); // Hier wird der Redis-Client importiert
 
 // POST-Route, um einen geblockten User hinzuzufügen
 router.post('/block', async (req, res) => {
     const { email, username } = req.body;
 
     try {
-        // Erstelle einen neuen BlockedUser
-        const newBlockedUser = await BlockedUsers.create({ email, username });
-        res.status(201).json({
-            message: 'User successfully blocked',
-            data: newBlockedUser
-        });
-    } catch (error) {
-        if (error.name === 'SequelizeUniqueConstraintError') {
+        // Finde heraus, ob der Benutzer bereits blockiert ist
+        const existingUser = await redis.get(email); // Hier verwenden wir die E-Mail als Schlüssel
+        if (existingUser) {
             return res.status(400).json({ message: 'User is already blocked' });
         }
+
+        // Speichere den neuen geblockten Benutzer in Redis
+        await redis.set(email, JSON.stringify({ username, email }));
+        res.status(201).json({
+            message: 'User successfully blocked',
+            data: { email, username }
+        });
+    } catch (error) {
         res.status(500).json({ message: 'Error blocking the user', error });
     }
 });
@@ -24,7 +27,17 @@ router.post('/block', async (req, res) => {
 // Rufe alle geblockten User auf
 router.get('/blocked-users', async (req, res) => {
     try {
-        const blockedUsers = await BlockedUsers.findAll();
+        // In Redis haben wir keine direkte Möglichkeit, alle Schlüssel abzurufen.
+        // Du könntest jedoch einen bestimmten Muster verwenden, z. B. "blocked_user:*"
+        const blockedUsersKeys = await redis.keys('*'); // Alle Schlüssel abrufen
+        const blockedUsers = [];
+
+        for (const key of blockedUsersKeys) {
+            const user = await redis.get(key);
+            if (user) {
+                blockedUsers.push(JSON.parse(user));
+            }
+        }
 
         if (blockedUsers.length === 0) {
             return res.status(200).json({ message: 'No blocked users found', data: [] });
@@ -36,19 +49,19 @@ router.get('/blocked-users', async (req, res) => {
     }
 });
 
-// Lösche einen geblockten User über die ID des Nutzers
-router.delete('/blocked-users/:id', async (req, res) => {
-    const { id } = req.params;
+// Lösche einen geblockten User über die E-Mail-Adresse
+router.delete('/blocked-users/:email', async (req, res) => {
+    const { email } = req.params;
 
     try {
-        // Finde den BlockedUser anhand der ID
-        const blockedUser = await BlockedUsers.findByPk(id);
+        // Überprüfe, ob der Benutzer blockiert ist
+        const blockedUser = await redis.get(email);
         if (!blockedUser) {
             return res.status(404).json({ message: 'Blocked user not found' });
         }
 
         // Lösche den BlockedUser
-        await blockedUser.destroy();
+        await redis.del(email);
         res.status(200).json({ message: 'Blocked user deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error deleting blocked user', error });
