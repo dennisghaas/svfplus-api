@@ -23,7 +23,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/event-responses', eventResponseRoutes);
 app.use('/api/standing-orders', standingOrdersRoutes);
-app.use('/api/blocked-users', blockedUsersRoutes);
+app.use('/api/', blockedUsersRoutes);
 
 // Server starten
 const PORT = process.env.PORT || 8080;
