@@ -6,6 +6,7 @@ const Event = require('../models/event');
 router.post('/create', async (req, res) => {
     try {
         const {
+            author,
             eventDescription,
             eventType,
             eventDate,
@@ -23,6 +24,7 @@ router.post('/create', async (req, res) => {
 
         // Neuen Termin erstellen
         const newEvent = await Event.create({
+            author,
             eventDescription,
             eventType,
             eventDate,
