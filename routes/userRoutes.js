@@ -27,7 +27,8 @@ router.post('/register', async (req, res) => {
             surname,
             userIsActivated,
             userImage,
-            username
+            username,
+            tutorial,
         } = req.body;
 
         const existingUser = await User.findOne({where: {username}});
@@ -54,7 +55,8 @@ router.post('/register', async (req, res) => {
             surname,
             userImage,
             userIsActivated,
-            username
+            username,
+            tutorial
         });
 
         // Token erstellen
