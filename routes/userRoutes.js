@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
             userIsActivated,
             userImage,
             username,
-            tutorial,
+            watchedTutorial,
         } = req.body;
 
         const existingUser = await User.findOne({where: {username}});
@@ -56,7 +56,7 @@ router.post('/register', async (req, res) => {
             userImage,
             userIsActivated,
             username,
-            tutorial
+            watchedTutorial
         });
 
         // Token erstellen
@@ -246,7 +246,8 @@ router.put('/:id', async (req, res) => {
         role,
         surname,
         userImage,
-        userIsActivated
+        userIsActivated,
+        watchedTutorial
     } = req.body;
 
     try {
@@ -272,7 +273,8 @@ router.put('/:id', async (req, res) => {
             role,
             surname,
             userImage,
-            userIsActivated
+            userIsActivated,
+            watchedTutorial
         });
 
         res.status(200).json({ message: 'User updated successfully', user });

@@ -83,11 +83,11 @@ const User = sequelize.define('User', {
     allowNull: false,
     unique: true,
   },
-  tutorial: {
+  watchedTutorial: {
     type: DataTypes.BOOLEAN,
     allowNull: true,
     unique: false,
-    defaultValue: true
+    defaultValue: false
   }
 });
 
