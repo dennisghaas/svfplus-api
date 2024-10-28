@@ -6,7 +6,8 @@ const userRoutes = require('./routes/userRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const eventResponseRoutes = require('./routes/eventResponseRoutes');
 const standingOrdersRoutes = require('./routes/standingOrdersRoutes')
-const blockedUsersRoutes = require('./routes/blockedUserRoutes')
+const blockedUsersRoutes = require('./routes/blockedUserRoutes');
+const lineUp = require('./routes/lineUpRoutes');
 
 // Middleware, um JSON-Daten zu parsen
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/event-responses', eventResponseRoutes);
 app.use('/api/standing-orders', standingOrdersRoutes);
 app.use('/api/', blockedUsersRoutes);
+app.use('/api/lineup', lineUp)
 
 // Server starten
 const PORT = process.env.PORT || 8080;
