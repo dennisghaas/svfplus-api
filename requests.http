@@ -4,25 +4,29 @@ Content-Type: application/json
 
 
 {
-  "accessRights": "svf_admin",
-  "birthday": "1955-01-01T00:00:00Z",
-  "debts": 0.00,
-  "email": "svfplusapp@gmail.com",
-  "gotSuit": false,
-  "isInjured": false,
-  "isInjuredType": "",
-  "isInjuredUntil": "1955-01-01T00:00:00Z",
-  "jerseyNumber": 0,
-  "name": "Admin",
-  "password": "!Admin1234",
-  "role": "[Admin]",
-  "surname": "Admin",
-  "userIsActivated": true,
-  "userImage": {
-    "bgColor": "--primary",
-    "initials": "AA"
-  },
-  "username": "admin"
+"accessRights": "svf_commander",
+"birthday": "1955-01-01T00:00:00.000Z",
+"debts": "0.00",
+"email": "admin@admin.de",
+"gotRejected": false,
+"gotSuit": false,
+"isInjured": false,
+"isInjuredType": null,
+"isInjuredUntil": "1955-01-01T00:00:00.000Z",
+"jerseyNumber": 0,
+"name": "admin",
+"password": "$2b$10$lwcn3ekOdFhFDVfFNcu8mOvwxpv7TauYODixuT8bGmss8x/dXawHW",
+"position": "",
+"role": "[\"Admin\"]",
+"surname": "admin",
+"userImage": {
+"bgColor": "--blue-primary",
+"bgImage": null,
+"initials": "aa"
+},
+"userIsActivated": true,
+"username": "admin",
+"watchedTutorial": true
 }
 
 ### Benutzer anmelden
@@ -60,26 +64,37 @@ POST http://localhost:8080/api/events/create
 Content-Type: application/json
 
 {
-  "eventDate": "2024-07-05T16:00:00Z",
-  "eventDescription": {
-    "title": "Auswärtsspiel",
-    "subtitle": "Holsatia im EMTV",
-    "description": "Wir wollen den vierten Sieg in Folge erreichen!",
-    "meetAt": "15:00 AM",
-    "startAt": "16:00 AM",
-    "endAt": "",
-    "deadlineToStart": "2024-08-23T16:00:00Z"
-  },
-  "eventType": "Spiel",
-  "linkExtern": "https://www.fussball.de/spiel/holsatia-im-emtv-3-friedrichsgabe-2/-/spiel/02PUL02EFG000000VS5489B4VVTKJJ35#!/",
-  "playerWithNoAccess": ["test"],
-  "showInDashboard": true,
-  "venue": "Away",
-  "venuePostalCode": "25335 Elmshorn",
-  "venueStreet": "Kaltenweide 234 b",
-  "voteOptions": ["Yes", "No", "Maybe"],
-  "voteQuestion": "Will you attend?",
-  "weekDay": "Sunday"
+"author": "admin",
+"eventDescription": {
+"endAt": "13:07",
+"title": "Heimspiel",
+"meetAt": "10:00",
+"beginAt": "11:00",
+"subtitle": "Stellingen 2.",
+"description": "",
+"deadlineToStart": "2024-10-31T17:07:00.000Z"
+},
+"eventType": "Spiel",
+"eventDate": "2024-11-03T00:00:00.000Z",
+"venue": "Heimspiel",
+"venueStreet": "Lawaetzstraße 8",
+"venuePostalCode": "22844 Norderstedt",
+"standingOrderID": null,
+"showInDashboard": false,
+"linkExtern": "https://www.fussball.de/spiel/friedrichsgabe-2-stellingen-2/-/spiel/02PUL024NK000000VS5489B4VVTKJJ35#!/",
+"playerWithNoAccess": [],
+"voteQuestion": "",
+"voteOptions": [
+{
+"text": "",
+"index": 0
+},
+{
+"text": "",
+"index": 1
+}
+],
+"voteMultipleSelection": false
 }
 
 ### Neuen Dauerauftrag erstellen
