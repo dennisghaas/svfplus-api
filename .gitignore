@@ -25,3 +25,6 @@ build/
 # Ignore cache directories
 .cache/
 .tmp/
+
+# Ignore request
+requests.http
