@@ -37,21 +37,52 @@ router.get('/', async (req, res) => {
 
 /* get data of lineup based on id */
 router.get('/:id', async (req, res) => {
-    try {
+    const { id } = req.params;
 
+    try {
+        const result = await LineUp.findAll({ where: { id } });
+
+        // Check if any items were found
+        if (result.length > 0) {
+            res.status(200).json(result);  // Send the array of items as JSON
+        } else {
+            res.status(404).json({ error: "No items found with this ID." });
+        }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-})
+});
 
 /* adjust lineup based on the id */
 router.put('/:id', async (req, res) => {
     try {
+        const { id } = req.params;
+        const { author, eventId, name, linedUpPlayers, selectedFormation, selectedFormationValue } = req.body;
+        const [updatedRows] = await LineUp.update(
+            {
+                author,
+                eventId,
+                name,
+                linedUpPlayers,
+                selectedFormation,
+                selectedFormationValue,
+            },
+            {
+                where: { id },
+            }
+        );
+
+        if (updatedRows === 0) {
+            return res.status(404).json({ error: 'LineUp nicht gefunden' });
+        }
+
+        const updatedLineUp = await LineUp.findByPk(id);
+        res.status(200).json(updatedLineUp);
 
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-})
+});
 
 // Delete all lineups
 router.delete('/', async (req, res) => {
