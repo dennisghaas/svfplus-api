@@ -8,13 +8,14 @@ const eventResponseRoutes = require('./routes/eventResponseRoutes');
 const standingOrdersRoutes = require('./routes/standingOrdersRoutes')
 const blockedUsersRoutes = require('./routes/blockedUserRoutes')
 const lineUpRoutes = require('./routes/lineupRoutes');
+const {accessCorsOrigin} = require("./config/config");
 
 // Middleware, um JSON-Daten zu parsen
 app.use(express.json());
 
 // Konfiguriere CORS
 app.use(cors({
-  origin: process.env.CORS_ORIGIN,
+  origin: accessCorsOrigin,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

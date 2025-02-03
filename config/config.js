@@ -17,4 +17,5 @@ module.exports = {
         dialect: 'mysql',
         port: process.env.DB_PORT || 3306,
     },
+    accessCorsOrigin: process.env.CORS_ORIGIN.split(',')
 };
