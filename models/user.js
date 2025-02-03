@@ -1,8 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-console.log('test', sequelize);
-
 const User = sequelize.define('User', {
   accessRights: {
     type: DataTypes.STRING,
