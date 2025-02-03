@@ -24,15 +24,6 @@ const config = {
     },
 };
 
-console.log('db connection', {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-    port: process.env.DB_PORT || 3306
-})
-
 // Wähle die passende Konfiguration je nach Umgebung
 const currentConfig = config[env];
 
